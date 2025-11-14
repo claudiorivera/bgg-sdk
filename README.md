@@ -23,8 +23,10 @@ A modern SDK for interacting with the BoardGameGeek (BGG) XMLAPI2, written in Ty
 ## Code Example
 
 ```typescript
-import { bgg } from "bgg-sdk";
-// import bgg from "bgg-sdk";
+import { createBggClient } from "bgg-sdk";
+
+// See https://boardgamegeek.com/using_the_xml_api for info on how to obtain an API token
+const bgg = createBggClient({ token: "your-api-token-here" });
 
 const results = await bgg.search({ query: "scythe" });
 
