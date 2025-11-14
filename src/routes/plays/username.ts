@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import type { AxiosInstance } from "axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsPlaysUsername } from "~/routes/types/params";
@@ -89,14 +89,13 @@ const transformData = (
   };
 };
 
-export const username = async (
-  params: ParamsPlaysUsername,
-): Promise<PayloadPlaysUsername> => {
-  const { data } = await axios.get<ApiResponsePlaysUsername | ApiResponseError>(
-    "/plays",
-    {
+export const createUsername = (axios: AxiosInstance) => {
+  return async (params: ParamsPlaysUsername): Promise<PayloadPlaysUsername> => {
+    const { data } = await axios.get<
+      ApiResponsePlaysUsername | ApiResponseError
+    >("/plays", {
       params,
-    },
-  );
-  return transformData(data);
+    });
+    return transformData(data);
+  };
 };

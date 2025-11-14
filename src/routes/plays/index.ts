@@ -1,2 +1,2 @@
-export { username } from "./username";
-export { id } from "./id";
+export { createId } from "./id";
+export { createUsername } from "./username";

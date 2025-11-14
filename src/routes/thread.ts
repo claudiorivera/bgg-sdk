@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import type { AxiosInstance } from "axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsThread } from "~/routes/types/params";
@@ -67,10 +67,12 @@ const transformData = (data: ApiResponse): PayloadThread => {
   };
 };
 
-export const thread = async (params: ParamsThread): Promise<PayloadThread> => {
-  const { data } = await axios.get<ApiResponse>(endpoint, {
-    params,
-  });
+export const createThread = (axios: AxiosInstance) => {
+  return async (params: ParamsThread): Promise<PayloadThread> => {
+    const { data } = await axios.get<ApiResponse>(endpoint, {
+      params,
+    });
 
-  return transformData(data);
+    return transformData(data);
+  };
 };

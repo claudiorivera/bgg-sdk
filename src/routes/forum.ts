@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import type { AxiosInstance } from "axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsForum } from "~/routes/types/params";
@@ -52,17 +52,19 @@ const transformData = (data: ApiResponse): PayloadForum => {
   };
 };
 
-export const forum = async (params: ParamsForum): Promise<PayloadForum> => {
-  // If the id provided is not a valid forum, BGG returns 200 with an html error page.
-  // Catch xml parse error and return null.
+export const createForum = (axios: AxiosInstance) => {
+  return async (params: ParamsForum): Promise<PayloadForum> => {
+    // If the id provided is not a valid forum, BGG returns 200 with an html error page.
+    // Catch xml parse error and return null.
 
-  try {
-    const { data } = await axios.get<ApiResponse>("/forum", {
-      params,
-    });
+    try {
+      const { data } = await axios.get<ApiResponse>("/forum", {
+        params,
+      });
 
-    return transformData(data);
-  } catch (error) {
-    return null;
-  }
+      return transformData(data);
+    } catch {
+      return null;
+    }
+  };
 };

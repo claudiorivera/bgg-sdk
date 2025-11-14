@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import type { AxiosInstance } from "axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsPlaysId } from "~/routes/types/params";
@@ -98,7 +98,9 @@ const transformData = (data: ApiResponsePlaysId): PayloadPlaysId => {
   };
 };
 
-export const id = async (params: ParamsPlaysId): Promise<PayloadPlaysId> => {
-  const { data } = await axios.get<ApiResponsePlaysId>("/plays", { params });
-  return transformData(data);
+export const createId = (axios: AxiosInstance) => {
+  return async (params: ParamsPlaysId): Promise<PayloadPlaysId> => {
+    const { data } = await axios.get<ApiResponsePlaysId>("/plays", { params });
+    return transformData(data);
+  };
 };

@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import type { AxiosInstance } from "axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsUser } from "~/routes/types/params";
@@ -203,17 +203,19 @@ const transformData = (data: ApiResponse): PayloadUser => {
   };
 };
 
-export const user = async (params: ParamsUser): Promise<PayloadUser | null> => {
-  // If the id provided is not a valid forum, BGG returns 200 with an html error page.
-  // Catch xml parse error and return null.
+export const createUser = (axios: AxiosInstance) => {
+  return async (params: ParamsUser): Promise<PayloadUser | null> => {
+    // If the id provided is not a valid forum, BGG returns 200 with an html error page.
+    // Catch xml parse error and return null.
 
-  try {
-    const { data } = await axios.get<ApiResponse>(endpoint, {
-      params,
-    });
+    try {
+      const { data } = await axios.get<ApiResponse>(endpoint, {
+        params,
+      });
 
-    return transformData(data);
-  } catch (error) {
-    return null;
-  }
+      return transformData(data);
+    } catch {
+      return null;
+    }
+  };
 };

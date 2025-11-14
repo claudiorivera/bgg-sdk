@@ -1,4 +1,4 @@
-import { axios } from "~/lib/axios";
+import type { AxiosInstance } from "axios";
 import { enforceArray } from "~/lib/helpers";
 
 import { ParamsHot } from "~/routes/types/params";
@@ -49,10 +49,12 @@ const transformData = (data: ApiResponse): PayloadHot => {
   };
 };
 
-export const hot = async (params?: ParamsHot): Promise<PayloadHot> => {
-  const { data } = await axios.get<ApiResponse>("/hot", {
-    params: transformParams(params),
-  });
+export const createHot = (axios: AxiosInstance) => {
+  return async (params?: ParamsHot): Promise<PayloadHot> => {
+    const { data } = await axios.get<ApiResponse>("/hot", {
+      params: transformParams(params),
+    });
 
-  return transformData(data);
+    return transformData(data);
+  };
 };
