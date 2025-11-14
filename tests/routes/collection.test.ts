@@ -1,15 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
 import {
   ParamsTransformed,
-  collection,
+  createCollection,
   transformParams,
 } from "~/routes/collection";
 import { ParamsCollection } from "~/routes/types/params";
 import { PayloadCollection } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const collection = createCollection(axios);
 
 const endpoint = "/collection";
 

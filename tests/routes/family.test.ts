@@ -1,11 +1,17 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
-import { ParamsTransformed, family, transformParams } from "~/routes/family";
+import {
+  ParamsTransformed,
+  createFamily,
+  transformParams,
+} from "~/routes/family";
 import { ParamsFamily } from "~/routes/types/params";
 import { PayloadFamily } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const family = createFamily(axios);
 
 const endpoint = "/family";
 

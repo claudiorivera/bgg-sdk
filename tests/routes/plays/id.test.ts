@@ -1,11 +1,13 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
-import { id } from "~/routes/plays/id";
+import { createId } from "~/routes/plays/id";
 import { ParamsPlaysId } from "~/routes/types/params";
 import { PayloadPlaysId } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const id = createId(axios);
 
 const endpoint = "/plays";
 

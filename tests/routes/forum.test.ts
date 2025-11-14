@@ -1,11 +1,13 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
-import { forum } from "~/routes/forum";
+import { createForum } from "~/routes/forum";
 import { ParamsForum } from "~/routes/types/params";
 import { PayloadForum } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const forum = createForum(axios);
 
 const endpoint = "/forum";
 

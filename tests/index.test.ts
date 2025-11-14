@@ -1,7 +1,14 @@
-import bgg, * as types from "~/index";
+import createBggClient, * as types from "~/index";
 
 describe("BGG Exports", () => {
-  it("should export all routes correctly", () => {
+  it("should export createBggClient factory function", () => {
+    expect(createBggClient).toBeDefined();
+    expect(typeof createBggClient).toBe("function");
+  });
+
+  it("should create a bgg client with all routes", () => {
+    const bgg = createBggClient({ token: "test-token" });
+
     expect(bgg).toBeDefined();
     expect(bgg.collection).toBeDefined();
     expect(bgg.family).toBeDefined();

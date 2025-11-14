@@ -1,16 +1,18 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
 import {
   ParamsTransformed,
   endpoint,
-  thing,
+  createThing,
   transformParams,
 } from "~/routes/thing";
 import { ParamsThing } from "~/routes/types/params";
 import { PayloadThing } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const thing = createThing(axios);
 
 describe("thing", () => {
   it("should make a thing query with all params with results and transform them", async () => {

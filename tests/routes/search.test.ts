@@ -1,16 +1,18 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
 import {
   ParamsTransformed,
   endpoint,
   transformParams,
-  search,
+  createSearch,
 } from "~/routes/search";
 import { ParamsSearch } from "~/routes/types/params";
 import { PayloadSearch } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const search = createSearch(axios);
 
 describe("search", () => {
   it("should make a search query with results and transform them", async () => {

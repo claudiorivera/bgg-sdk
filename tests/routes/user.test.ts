@@ -1,11 +1,13 @@
 import MockAdapter from "axios-mock-adapter";
-import { axios } from "~/lib/axios";
+import { createAxiosInstance } from "~/lib/axios";
 
-import { endpoint, user } from "~/routes/user";
+import { endpoint, createUser } from "~/routes/user";
 import { ParamsUser } from "~/routes/types/params";
 import { PayloadUser } from "~/routes/types/payloads";
 
+const axios = createAxiosInstance({ token: "test-token" });
 const mock = new MockAdapter(axios);
+const user = createUser(axios);
 
 describe("thread", () => {
   it("should fetch a valid user and ransform it", async () => {
